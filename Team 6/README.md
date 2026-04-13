@@ -279,7 +279,7 @@ CREATE TABLE transactions (
 
 <div align="center">
 
-<img src="https://capsule-render.vercel.app/api?type=soft&color=0:0f0c29,50:302b63,100:24243e&height=130&text=Sayan%20Mondal&fontSize=40&fontColor=7eb3ff&desc=Project%20Leader%20%7C%20Team%206%20%7C%20Full-Stack%20Developer&descColor=aaaaaa&descSize=14&descAlignY=75&animation=twinkling" width="60%"/>
+<img src="https://capsule-render.vercel.app/api?type=soft&color=0:0f0c29,50:302b63,100:24243e&height=130&text=Sayan%20Mondal&fontSize=40&fontColor=7eb3ff&desc=Team%20Leader%20%7C%20Team%206%20%7C%20Full-Stack%20Developer&descColor=aaaaaa&descSize=14&descAlignY=75&animation=twinkling" width="60%"/>
 
 <br/><br/>
 
