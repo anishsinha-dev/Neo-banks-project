@@ -335,7 +335,7 @@ git push origin feature/your-feature-name
 This project is licensed under the **MIT License** — free to use, modify, and distribute.
 
 ```
-MIT License © 2025 Sayan Mondal & Team 6
+MIT License © 2026 Sayan Mondal & Team 6
 ```
 
 </div>
