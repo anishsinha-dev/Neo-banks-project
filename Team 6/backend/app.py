@@ -1,9 +1,3 @@
-# ============================================================
-#  Neo Banking System - Project 6
-#  UPI Payment Simulator - Backend (Flask)
-#  Team Number : 6
-# ============================================================
-
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import re
@@ -25,10 +19,7 @@ def validate_upi(upi_id):
     return False
 
 
-# -------------------------------------------------------
-# Route 1 : Register a New User
-# POST /register
-# -------------------------------------------------------
+
 
 @app.route("/register", methods=["POST"])
 def register():
@@ -40,9 +31,10 @@ def register():
     upi_id  = data.get("upi_id", "").strip()
     phone   = data.get("phone", "").strip()
     balance = data.get("balance", 0)
+    Email   = data.get("Email", "").strip()
 
     # check all fields are filled
-    if not name or not upi_id or not phone:
+    if not name or not upi_id or not phone or not Email:
         return jsonify({"success": False, "message": "All fields are required"}), 400
 
     # check phone number
@@ -68,15 +60,12 @@ def register():
         return jsonify({"success": False, "message": "This UPI ID is already registered"}), 400
 
     # save user in database
-    database.add_user(name, upi_id, phone, balance)
+    database.add_user(name, upi_id, phone, balance, Email)
 
     return jsonify({"success": True, "message": "User registered successfully!", "upi_id": upi_id})
 
 
-# -------------------------------------------------------
-# Route 2 : Login (just check if upi id exists)
-# POST /login
-# -------------------------------------------------------
+
 
 @app.route("/login", methods=["POST"])
 def login():
@@ -99,15 +88,13 @@ def login():
             "name"    : user["name"],
             "upi_id"  : user["upi_id"],
             "phone"   : user["phone"],
-            "balance" : user["balance"]
+            "balance" : user["balance"],
+            "Email"   : user["Email"],
         }
     })
 
 
-# -------------------------------------------------------
-# Route 3 : Get User Balance
-# GET /balance/<upi_id>
-# -------------------------------------------------------
+
 
 @app.route("/balance/<upi_id>", methods=["GET"])
 def get_balance(upi_id):
@@ -121,14 +108,12 @@ def get_balance(upi_id):
         "success" : True,
         "name"    : user["name"],
         "upi_id"  : user["upi_id"],
-        "balance" : user["balance"]
+        "balance" : user["balance"],
+        "Email"   : user["Email"],
     })
 
 
-# -------------------------------------------------------
-# Route 4 : Send Money
-# POST /send
-# -------------------------------------------------------
+
 
 @app.route("/send", methods=["POST"])
 def send_money():
@@ -137,6 +122,7 @@ def send_money():
     sender_upi   = data.get("sender_upi", "").strip()
     receiver_upi = data.get("receiver_upi", "").strip()
     amount       = data.get("amount", 0)
+    Email        = data.get("email", "").strip()
 
     # validate upi ids
     if not validate_upi(sender_upi):
@@ -191,10 +177,7 @@ def send_money():
     })
 
 
-# -------------------------------------------------------
-# Route 5 : View Last N Transactions
-# GET /transactions/<upi_id>?n=5
-# -------------------------------------------------------
+
 
 @app.route("/transactions/<upi_id>", methods=["GET"])
 def get_transactions(upi_id):
@@ -223,10 +206,7 @@ def get_transactions(upi_id):
     })
 
 
-# -------------------------------------------------------
-# Route 6 : Get All Users (for testing/admin)
-# GET /users
-# -------------------------------------------------------
+
 
 @app.route("/users", methods=["GET"])
 def get_all_users():
@@ -234,9 +214,7 @@ def get_all_users():
     return jsonify({"success": True, "users": users})
 
 
-# -------------------------------------------------------
-# Run the App
-# -------------------------------------------------------
+
 
 if __name__ == "__main__":
     database.create_tables()   # create tables if not exist
