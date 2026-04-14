@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<!-- Navbar -->
+
 <div class="navbar">
     <div class="logo">🏦 Neo<span>Bank</span></div>
     <div class="nav-links">
@@ -21,7 +21,7 @@
 
 <div class="container">
 
-    <!-- Balance Card -->
+    
     <div class="balance-card">
         <div class="welcome">Welcome back,</div>
         <div class="user-name" id="userName">Loading...</div>
@@ -30,7 +30,7 @@
         <div class="upi-id-text" id="userUpiId">UPI ID : ---</div>
     </div>
 
-    <!-- Quick Actions -->
+  
     <div class="quick-actions">
         <a class="action-btn" href="send_money.html">
             <div class="icon">💸</div>
@@ -46,7 +46,7 @@
         </a>
     </div>
 
-    <!-- Recent Transactions Section -->
+    
     <div class="card">
         <h2>Recent Transactions</h2>
         <div id="recentTxns">
@@ -60,26 +60,26 @@
 <script>
     const BASE_URL = "http://127.0.0.1:5000";
 
-    // get user from localStorage (saved during login)
+    
     const user = JSON.parse(localStorage.getItem("user"));
 
-    // if not logged in, go to login page
+    
     if (!user) {
         window.location.href = "index.html";
     }
 
-    // show user info on page
+    
     document.getElementById("userName").textContent    = user.name;
     document.getElementById("userBalance").textContent = "Rs. " + user.balance.toFixed(2);
     document.getElementById("userUpiId").textContent   = "UPI ID : " + user.upi_id;
 
-    // logout function
+    
     function logout() {
         localStorage.removeItem("user");
         window.location.href = "index.html";
     }
 
-    // load fresh balance from backend
+    
     async function loadBalance() {
         try {
             const response = await fetch(BASE_URL + "/balance/" + user.upi_id);
@@ -95,7 +95,7 @@
         }
     }
 
-    // load recent 5 transactions
+    
     async function loadRecentTxns() {
         try {
             const response = await fetch(BASE_URL + "/transactions/" + user.upi_id + "?n=5");
@@ -108,7 +108,7 @@
                 return;
             }
 
-            // build table HTML
+            
             let html = '<table class="txn-table"><thead><tr>';
             html += '<th>Txn ID</th><th>From / To</th><th>Amount</th><th>Date & Time</th><th>Status</th>';
             html += '</tr></thead><tbody>';
@@ -138,7 +138,7 @@
         }
     }
 
-    // run when page loads
+    
     loadBalance();
     loadRecentTxns();
 </script>
